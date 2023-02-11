@@ -40,7 +40,7 @@ module.exports = (appInfo) => {
             host: "localhost",
             port: "3306",
             user: "root",
-            database: "test",
+            database: "book-keeping-book",
         },
         app: true,
         agent: false,
