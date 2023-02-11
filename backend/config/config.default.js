@@ -30,6 +30,10 @@ module.exports = (appInfo) => {
         mapping: { ".html": "ejs" },
     };
 
+    config.jwt = {
+        secret: 'kahoohak'
+    }
+
     // add your user config here
     const userConfig = {
         // myAppName: 'egg',
