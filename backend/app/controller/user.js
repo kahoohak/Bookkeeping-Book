@@ -97,7 +97,7 @@ class UserController extends Controller {
         const { ctx, app } = this;
         const token = ctx.request.header.authorization;
         try {
-            const decode = await app.jwt.verify(token, app.config.jwt.secret);
+            const decode = app.jwt.verify(token, app.config.jwt.secret);
 
             ctx.body = {
                 code: 200,
@@ -105,7 +105,6 @@ class UserController extends Controller {
                 data: { ...decode },
             };
         } catch (error) {
-            console.log("error is: ", error);
             ctx.body = {
                 code: 500,
                 msg: "获取失败",
