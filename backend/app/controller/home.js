@@ -12,9 +12,8 @@ class HomeController extends Controller {
 
     async user() {
         const { ctx } = this;
-        console.log("ctx.service", ctx.service);
-        const { name } = await ctx.service.home.user();
-        ctx.body = { name };
+        const result = await ctx.service.home.user();
+        ctx.body = result;
     }
 
     async add() {
