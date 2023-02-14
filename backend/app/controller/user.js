@@ -28,13 +28,11 @@ class UserController extends Controller {
         }
 
         const default_avatar = "http://s.yezgea02.com/1615973940679/WeChat77d6d2ac093e247c361f0b8a7aeb6c2a.png";
-        const default_signture = "快来更新个人签名吧~";
 
         const result = await ctx.service.user.register({
             username,
             password,
             avatar: default_avatar,
-            signature: default_signture,
             create_time: Math.floor(Date.now() / 1000),
         });
 
@@ -108,6 +106,49 @@ class UserController extends Controller {
             ctx.body = {
                 code: 500,
                 msg: "获取失败",
+                data: null,
+            };
+        }
+    }
+
+    async getUserInfo() {
+        const { ctx, app } = this;
+        const token = ctx.request.header.authorization;
+        const decode = app.jwt.verify(token, app.config.jwt.secret);
+
+        const userInfo = await ctx.service.user.getUserByName(decode.username);
+
+        ctx.body = {
+            code: 200,
+            msg: "获取成功",
+            data: {
+                id: userInfo.id,
+                username: userInfo.username,
+                avatar: userInfo.avatar,
+                signature: userInfo.signature,
+            },
+        };
+    }
+
+    async editUserInfo() {
+        const { ctx, app } = this;
+        const { signature = "" } = ctx.request.body;
+
+        try {
+            const token = ctx.request.header.authorization;
+            const decode = app.jwt.verify(token, app.config.jwt.secret);
+            const userInfo = await ctx.service.user.getUserByName(decode.username);
+            const result = await ctx.service.user.editUserInfo({ ...userInfo, signature });
+
+            ctx.body = {
+                code: 200,
+                msg: "编辑成功",
+                data: null,
+            };
+        } catch (error) {
+            ctx.body = {
+                code: 500,
+                msg: "编辑失败",
                 data: null,
             };
         }
