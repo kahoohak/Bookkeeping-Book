@@ -12,6 +12,7 @@ module.exports = app => {
   router.post('/api/user/getUserInfo', _jwt, controller.user.getUserInfo)
   router.post('/api/user/editUserInfo', _jwt, controller.user.editUserInfo)
   router.post('/api/user/test', _jwt, controller.user.test)
+  router.post('/api/upload', controller.upload.upload)
   // router.get('/', controller.home.index);
   // router.get('/user', controller.home.user);
   // router.post('/addUser', controller.home.addUser);

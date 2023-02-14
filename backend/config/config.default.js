@@ -31,12 +31,23 @@ module.exports = (appInfo) => {
     };
 
     config.jwt = {
-        secret: 'kahoohak'
-    }
+        secret: "kahoohak",
+    };
+
+    config.multipart = {
+        mode: "file",
+    };
+
+    config.cors = {
+        origin: "*",
+        credentials: true,
+        allowMethods: "GET,POST,PUT,DELETE,HEAD,PATCH",
+    };
 
     // add your user config here
     const userConfig = {
         // myAppName: 'egg',
+        uploadDir: "app/public/upload",
     };
 
     exports.mysql = {
